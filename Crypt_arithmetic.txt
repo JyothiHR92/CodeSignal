@@ -1,0 +1,48 @@
+boolean isCryptSolution(String[] crypt, char[][] solution) {
+HashMap<Character , Character> map = new HashMap<>();
+int m = solution.length;
+
+for(int i = 0; i < m; i++)
+{
+    map.put(solution[i][0] , solution[i][1]);
+}
+
+// System.out.println(map);
+
+
+StringBuilder sb1 = new StringBuilder();
+StringBuilder sb2 = new StringBuilder();
+StringBuilder sb3 = new StringBuilder();
+
+for(int i = 0; i < crypt[0].length(); i++)
+{
+     char num = map.get(crypt[0].charAt(i));
+     sb1.append(num);
+    
+}
+     if (sb1.length() > 1 && sb1.charAt(0) == '0')
+        return false;
+
+for(int i = 0 ; i < crypt[1].length(); i++)
+{
+      char num2 = map.get(crypt[1].charAt(i));
+      sb2.append(num2);
+}
+     if (sb2.length() > 1 && sb2.charAt(0) == '0')
+        return false;
+
+for (int i = 0; i < crypt[2].length(); i++)
+{
+     char num3 = map.get(crypt[2].charAt(i));
+     sb3.append(num3);
+}
+     if (sb3.length() > 1 && sb3.charAt(0) == '0')
+        return false;
+
+long num1 = Long.parseLong(sb1.toString());
+long num2 = Long.parseLong(sb2.toString());
+long num3 = Long.parseLong(sb3.toString());
+
+return num1 + num2 == num3;
+
+}
