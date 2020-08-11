@@ -1,0 +1,67 @@
+// Singly-linked lists are already defined with this interface:
+// class ListNode<T> {
+//   ListNode(T x) {
+//     value = x;
+//   }
+//   T value;
+//   ListNode<T> next;
+// }
+//
+boolean isListPalindrome(ListNode<Integer> l) {
+if(l == null)
+{
+    return true;
+}
+ListNode firsthalfend = findend(l);
+ListNode secondstart = reverselist(firsthalfend.next);
+
+ListNode p1 = l;
+ListNode p2 = secondstart;
+
+boolean result = true;
+
+while(result == true && p2 != null)
+{
+    if(!p1.value.equals(p2.value))
+    {
+        return false;
+    }
+    
+    p1 = p1.next;
+    p2 = p2.next;
+}
+
+firsthalfend.next = reverselist(secondstart);
+return result;
+
+}
+
+ListNode findend(ListNode l)
+{
+    ListNode slow = l;
+    ListNode fast = l;
+    
+    while(fast.next != null && fast.next.next != null)
+    {
+        fast = fast.next.next;
+        slow = slow.next;
+    }
+    
+    return slow;
+}
+
+ListNode reverselist(ListNode head)
+{
+    ListNode cur = head;
+    ListNode prev = null;
+    
+    while(cur != null )
+    {
+        ListNode temp = cur.next;
+        cur.next = prev;
+        prev = cur;
+        cur = temp;
+    }
+    
+    return prev;
+}

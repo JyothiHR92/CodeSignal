@@ -1,0 +1,71 @@
+// Singly-linked lists are already defined with this interface:
+// class ListNode<T> {
+//   ListNode(T x) {
+//     value = x;
+//   }
+//   T value;
+//   ListNode<T> next;
+// }
+//
+ListNode<Integer> addTwoHugeNumbers(ListNode<Integer> a, ListNode<Integer> b) {
+   ListNode new_a = reverseList(a);
+   ListNode new_b = reverseList(b);
+   ListNode dummyhead = new ListNode(0);
+   ListNode cur = dummyhead;
+   ListNode cur_a = new_a;
+   ListNode cur_b = new_b;
+   int carry = 0;
+   
+   ListNode new_head = null;
+   ListNode prev = null;
+   
+   while(cur_a != null || cur_b != null)
+   {
+            int x = (cur_a != null) ? (int)cur_a.value:0;
+            int y = (cur_b != null) ? (int)cur_b.value:0;
+            int sum = x+y+carry;
+            carry = sum/10000;
+            cur.next = new ListNode(sum%10000);
+            cur = cur.next;
+            if(cur_a != null) cur_a = cur_a.next;
+            if(cur_b != null) cur_b = cur_b.next;
+   }
+   
+   if(carry > 0)
+   {
+       cur.next  = new ListNode(carry);
+       
+   }
+   
+   dummyhead.next = reverseList(dummyhead.next);
+   
+   reverseList(new_a);
+   reverseList(new_b);
+   
+   return dummyhead.next;
+   
+   
+   
+    
+}
+
+ListNode reverseList(ListNode a)
+{
+    if(a == null)
+    {
+        return null;
+    }
+    
+    ListNode cur = a;
+    ListNode prev = null;
+    
+    while(cur != null)
+    {
+        ListNode temp = cur.next ;
+        cur.next = prev;
+        prev = cur;
+        cur = temp;
+    }
+    
+    return prev;
+}
