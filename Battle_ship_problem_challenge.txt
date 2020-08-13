@@ -1,0 +1,70 @@
+int battleships(int N, String[] G) {
+ if(N == 0)
+ return 0;
+ List<int[]> directions = Arrays.asList(
+     new int[] {1,0},
+     new int[] {-1,0},
+     new int[] {0,1},
+     new int[] {0,-1}
+ );
+ 
+ Queue<int[]> q = new LinkedList<>();
+ boolean[][] visited = new boolean[N][N];
+ 
+ char[][] guard = new char[N][N];
+  for(int i = 0 ; i < N ; i++)
+  {
+      
+      for(int j = 0; j < N; j++)
+      {
+          guard[i][j] = G[i].charAt(j);
+          System.out.println(guard[i][j]);
+      }
+  }
+  
+  for(int i = 0; i < guard.length; i++)
+  {
+      for(int j = 0; j < guard[0].length; j++)
+      {
+          if(guard[i][j] == 'x')
+          {
+               q.add(new int[] {i,j});
+          }
+         
+      }
+  }
+  
+  for(int i = 0; i < guard.length; i++)
+  {
+      for(int j = 0; j < guard[0].length; j++)
+      {
+          visited[i][j] = false;
+      }
+  }
+  int count = 0;
+  System.out.println("here");
+  while(!q.isEmpty())
+  {
+      int[] point = q.poll();
+      System.out.println("here");
+      int row = point[0];
+      int col = point[1];
+      visited[row][col] = true;
+      for(int[] dir : directions)
+      {
+          int r = row + dir[0];
+          int c = col + dir[1];
+          if(r < 0 || c < 0 || r >= guard.length || c >= guard[0].length || guard[r][c] != 'x' || visited[r][c] == true)
+          {
+              continue;
+          }
+          
+          q.add(new int[] {r,c});
+          
+      }
+      
+      count++;
+  }
+  
+ return count;
+}
