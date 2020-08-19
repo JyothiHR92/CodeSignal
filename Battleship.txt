@@ -1,0 +1,43 @@
+public static String battleShip(int N, String S, String T)
+{
+	int hit = 0;
+	int sunk = 0;
+	Set<String> hits = new HashSet<>(Arrays.asList(T.split(" ")));
+	String[] ships = S.split(",");
+	for (int i = 0; i < ships.length; i++) {
+		Set<String> coordinates = getShipCoordinates(ships[i]);
+		if(hits.containsAll(coordinates))
+		{
+			sunk++;
+		}
+		else 
+		{
+			for (String coordinate : coordinates) {
+				if(hits.contains(coordinate))
+				{
+					hit++;
+					break;
+				}
+			}
+		}
+	}
+	return sunk+","+hit;
+}
+
+public static Set<String> getShipCoordinates(String ship)
+{
+	Set<String> set = new HashSet<String>();
+	String[] coordinates = ship.split(" ");
+	int row_start = coordinates[0].charAt(0)-'0';
+	char col_start = coordinates[0].charAt(1);
+	
+	int row_end = coordinates[1].charAt(0)-'0';
+	char col_end = coordinates[1].charAt(1);
+	
+	for (int i = row_start; i <= row_end; i++) {
+		for (char j = col_start; j <= col_end; j++) {
+			set.add(i+""+j);
+		}	
+	}
+	return set;
+}
