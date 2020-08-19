@@ -1,0 +1,61 @@
+
+int[] findLongestSubarrayBySum(int s, int[] arr) {
+
+HashMap<Integer,Integer> map = new HashMap<>();
+map.put(0, -1);
+int max_len = 0;
+int[] res  = new int[2];
+int[] err = new int[1];
+err[0] = -1;
+int sum = 0;
+if(arr.length == 1)
+{
+    if (arr[0] != s)
+    {
+        return err;
+    }
+    else
+    {
+        res[0] = res[1] = 1;
+        return res;
+    }    
+}
+for(int i = 0; i < arr.length ; i ++)
+{
+    sum = sum + arr[i];
+     if(map.containsKey(sum-s))
+    {
+        if(max_len < (i - map.get(sum - s)))
+        {
+            //max_len = i - map.get(sum - s);
+             max_len = Math.max(max_len,i - map.get(sum-s));
+            res[0] =  map.get(sum - s) + 1;
+            res[1] = i;
+            
+            System.out.println(i - map.get(sum - s));
+            System.out.println("here" + map.get(sum-s));
+        }
+    }
+    
+    if(!map.containsKey(sum))
+    {
+        map.put(sum,i);
+    }
+}
+
+System.out.println(max_len);
+
+
+if(max_len > 0)
+{
+    // make it 1 based
+    res[0] += 1;
+    res[1] += 1;
+    return res;
+}
+else
+{
+    return err;
+}
+
+}

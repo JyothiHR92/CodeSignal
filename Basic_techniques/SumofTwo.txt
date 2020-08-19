@@ -1,0 +1,19 @@
+boolean sumOfTwo(int[] a, int[] b, int v) {
+    
+    HashSet<Integer> set = new HashSet<>();
+    for(int i = 0; i < a.length; i++)
+    {
+        set.add(a[i]);
+    }
+    
+    for(int i = 0; i < b.length; i++)
+    {
+        int c = v - b[i];
+        if(set.contains(c))
+        {
+            return true;
+        }
+    }
+    
+    return false;
+}
